@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deal Finder Québec</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+h1 {
+  margin-bottom: 10px;
+}
+input {
+  width: 85%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+button {
+  margin-top: 15px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background: #00c6ff;
+  color: white;
+  cursor: pointer;
+}
+.results {
+  margin-top: 25px;
+}
+.card {
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 10px auto;
+  width: 90%;
+}
+.best {
+  border: 3px solid gold;
+}
+</style>
+</head>
+<body>
+
+<h1>🔎 Deal Finder Québec</h1>
+<p>Trouve le meilleur prix instantanément</p>
+
+<input type="text" id="search" placeholder="Ex: iPhone 15">
+<br>
+<button onclick="searchProduct()">Rechercher</button>
+
+<div class="results" id="results"></div>
+
+<script>
+function searchProduct() {
+  const query = document.getElementById("search").value;
+  const resultsDiv = document.getElementById("results");
+
+  if(query === "") {
+    resultsDiv.innerHTML = "<p>Entre un produit.</p>";
+    return;
+  }
+
+  // Simulation de prix (remplaçable par API plus tard)
+  let stores = [
+    { name: "Amazon", price: (Math.random()*300+200).toFixed(2), trust: 9.5 },
+    { name: "Walmart", price: (Math.random()*300+200).toFixed(2), trust: 9.0 },
+    { name: "Best Buy", price: (Math.random()*300+200).toFixed(2), trust: 9.2 },
+    { name: "eBay", price: (Math.random()*300+200).toFixed(2), trust: 8.5 }
+  ];
+
+  stores.sort((a,b) => a.price - b.price);
+
+  resultsDiv.innerHTML = `<h3>Résultats pour "${query}"</h3>`;
+
+  stores.forEach((store, index) => {
+    resultsDiv.innerHTML += `
+      <div class="card ${index===0 ? 'best' : ''}">
+        <h3>${store.name} ${index===0 ? "🏆 Meilleure offre" : ""}</h3>
+        <p>Prix: ${store.price} $ CAD</p>
+        <p>Fiabilité: ⭐ ${store.trust}/10</p>
+      </div>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>
